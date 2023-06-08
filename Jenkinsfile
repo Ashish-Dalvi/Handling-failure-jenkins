@@ -1,18 +1,12 @@
 pipeline {
-    agent any
+    agent {
+        docker { image 'node:18.16.0-alpine' }
+    }
     stages {
         stage('Test') {
             steps {
-                sh 'make check'
+                sh 'node --version'
             }
-        }
-    }
-    post {
-        always {
-            junit '**/target/*.xml'
-        }
-        failure {
-            mail to: ashishdalvir@gmail.com, subject: 'The Pipeline failed :('
         }
     }
 }
